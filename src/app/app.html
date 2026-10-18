@@ -19,28 +19,73 @@
 
       <div class="search-card">
         <div class="form-grid">
-          <div class="form-field">
+          <div class="form-field autocomplete-field">
             <label for="brand">Marka pojazdu</label>
-            <select id="brand" (change)="onBrandChange($event)">
-              <option value="">Wszystkie marki</option>
-              @for (brand of brands; track brand) {
-                <option [value]="brand">{{ brand }}</option>
-              }
-            </select>
+
+            <input
+              id="brand"
+              type="text"
+              placeholder="Wpisz markę, np. Toyota"
+              autocomplete="off"
+              [(ngModel)]="brandQuery"
+              (input)="onBrandInput()"
+              (focus)="showBrandSuggestions = true"
+            />
+
+            @if (showBrandSuggestions) {
+              <div class="suggestions">
+                @for (brand of filteredBrands; track brand) {
+                  <button
+                    type="button"
+                    class="suggestion-option"
+                    (click)="selectBrand(brand)"
+                  >
+                    {{ brand }}
+                  </button>
+                }
+
+                @if (filteredBrands.length === 0) {
+                  <div class="no-suggestions">
+                    Brak pasujących marek
+                  </div>
+                }
+              </div>
+            }
           </div>
 
-          <div class="form-field">
+          <div class="form-field autocomplete-field">
             <label for="model">Model pojazdu</label>
-            <select
+
+            <input
               id="model"
-              [(ngModel)]="selectedModel"
+              type="text"
+              placeholder="Najpierw wybierz markę"
+              autocomplete="off"
+              [(ngModel)]="modelQuery"
               [disabled]="!selectedBrand"
-            >
-              <option value="">Wszystkie modele</option>
-              @for (model of availableModels; track model) {
-                <option [value]="model">{{ model }}</option>
-              }
-            </select>
+              (input)="onModelInput()"
+              (focus)="showModelSuggestions = true"
+            />
+
+            @if (showModelSuggestions && selectedBrand) {
+              <div class="suggestions">
+                @for (model of filteredModels; track model) {
+                  <button
+                    type="button"
+                    class="suggestion-option"
+                    (click)="selectModel(model)"
+                  >
+                    {{ model }}
+                  </button>
+                }
+
+                @if (filteredModels.length === 0) {
+                  <div class="no-suggestions">
+                    Brak pasujących modeli
+                  </div>
+                }
+              </div>
+            }
           </div>
 
           <div class="form-field">

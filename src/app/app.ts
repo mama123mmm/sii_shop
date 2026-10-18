@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
   selector: 'app-root',
   imports: [FormsModule],
   templateUrl: './app.html',
-  styleUrl: './app.scss',
+  styleUrls: ['./app.scss'],
 })
 export class App {
   brands = ['Audi', 'BMW', 'Ford', 'Toyota', 'Volkswagen'];
@@ -39,15 +39,63 @@ export class App {
 
   currentYear = new Date().getFullYear();
 
-  get availableModels(): string[] {
-    return this.modelsByBrand[this.selectedBrand] ?? [];
+  brandQuery = '';
+  modelQuery = '';
+
+  showBrandSuggestions = false;
+  showModelSuggestions = false;
+
+  get filteredBrands(): string[] {
+    const query = this.brandQuery.trim().toLowerCase();
+
+    if (!query) {
+      return this.brands;
+    }
+
+    return this.brands.filter(brand =>
+      brand.toLowerCase().includes(query)
+    );
   }
 
-  onBrandChange(event: Event): void {
-    this.selectedBrand = (event.target as HTMLSelectElement).value;
+  get filteredModels(): string[] {
+    const models = this.modelsByBrand[this.selectedBrand] ?? [];
+    const query = this.modelQuery.trim().toLowerCase();
 
-    // Po zmianie marki czyścimy wcześniej wybrany model.
+    if (!query) {
+      return models;
+    }
+
+    return models.filter(model =>
+      model.toLowerCase().includes(query)
+    );
+  }
+
+  onBrandInput(): void {
+    this.selectedBrand = '';
     this.selectedModel = '';
+    this.modelQuery = '';
+    this.showBrandSuggestions = true;
+    this.showModelSuggestions = false;
+  }
+
+  selectBrand(brand: string): void {
+    this.selectedBrand = brand;
+    this.brandQuery = brand;
+    this.selectedModel = '';
+    this.modelQuery = '';
+    this.showBrandSuggestions = false;
+    this.showModelSuggestions = false;
+  }
+
+  onModelInput(): void {
+    this.selectedModel = '';
+    this.showModelSuggestions = true;
+  }
+
+  selectModel(model: string): void {
+    this.selectedModel = model;
+    this.modelQuery = model;
+    this.showModelSuggestions = false;
   }
 
   search(): void {
