@@ -1,0 +1,163 @@
+<div class="page">
+  <header class="site-header">
+    <div class="brand">
+      <span class="brand-icon">S</span>
+      <span>si_shop</span>
+    </div>
+    <span class="header-subtitle">Znajdź samochód dla siebie</span>
+  </header>
+
+  <main class="main-content">
+    <section class="search-section">
+      <div class="section-heading">
+        <p class="eyebrow">PORTAL MOTORYZACYJNY</p>
+        <h1>Znajdź swój następny samochód</h1>
+        <p class="description">
+          Wybierz kryteria i znajdź samochód dopasowany do swoich potrzeb.
+        </p>
+      </div>
+
+      <div class="search-card">
+        <div class="form-grid">
+          <div class="form-field autocomplete-field">
+            <label for="brand">Marka pojazdu</label>
+
+            <input
+              id="brand"
+              type="text"
+              placeholder="Wpisz markę, np. Toyota"
+              autocomplete="off"
+              [(ngModel)]="brandQuery"
+              (input)="onBrandInput()"
+              (focus)="showBrandSuggestions = true"
+            />
+
+            @if (showBrandSuggestions) {
+              <div class="suggestions">
+                @for (brand of filteredBrands; track brand) {
+                  <button
+                    type="button"
+                    class="suggestion-option"
+                    (click)="selectBrand(brand)"
+                  >
+                    {{ brand }}
+                  </button>
+                }
+
+                @if (filteredBrands.length === 0) {
+                  <div class="no-suggestions">
+                    Brak pasujących marek
+                  </div>
+                }
+              </div>
+            }
+          </div>
+
+          <div class="form-field autocomplete-field">
+            <label for="model">Model pojazdu</label>
+
+            <input
+              id="model"
+              type="text"
+              placeholder="Najpierw wybierz markę"
+              autocomplete="off"
+              [(ngModel)]="modelQuery"
+              [disabled]="!selectedBrand"
+              (input)="onModelInput()"
+              (focus)="showModelSuggestions = true"
+            />
+
+            @if (showModelSuggestions && selectedBrand) {
+              <div class="suggestions">
+                @for (model of filteredModels; track model) {
+                  <button
+                    type="button"
+                    class="suggestion-option"
+                    (click)="selectModel(model)"
+                  >
+                    {{ model }}
+                  </button>
+                }
+
+                @if (filteredModels.length === 0) {
+                  <div class="no-suggestions">
+                    Brak pasujących modeli
+                  </div>
+                }
+              </div>
+            }
+          </div>
+
+          <div class="form-field">
+            <label for="priceFrom">Cena od (zł)</label>
+            <input
+              id="priceFrom"
+              type="number"
+              min="0"
+              placeholder="Cena minimalna"
+              [(ngModel)]="priceFrom"
+            />
+          </div>
+
+          <div class="form-field">
+            <label for="priceTo">Cena do (zł)</label>
+            <input
+              id="priceTo"
+              type="number"
+              min="0"
+              placeholder="Cena maksymalna"
+              [(ngModel)]="priceTo"
+            />
+          </div>
+
+          <div class="form-field">
+            <label for="yearFrom">Rok produkcji od</label>
+            <input
+              id="yearFrom"
+              type="number"
+              min="1900"
+              [max]="currentYear"
+              placeholder="Np. 2018"
+              [(ngModel)]="yearFrom"
+            />
+          </div>
+
+          <div class="form-field">
+            <label for="yearTo">Rok produkcji do</label>
+            <input
+              id="yearTo"
+              type="number"
+              min="1900"
+              [max]="currentYear"
+              placeholder="Np. 2025"
+              [(ngModel)]="yearTo"
+            />
+          </div>
+
+          <div class="form-field full-width">
+            <label for="fuel">Rodzaj paliwa</label>
+            <select id="fuel" [(ngModel)]="selectedFuel">
+              <option value="">Wszystkie rodzaje paliwa</option>
+              @for (fuel of fuelTypes; track fuel.value) {
+                <option [value]="fuel.value">{{ fuel.label }}</option>
+              }
+            </select>
+          </div>
+        </div>
+
+        <button class="search-button" (click)="search()">
+          <span class="search-icon">⌕</span>
+          Szukaj samochodów
+        </button>
+
+        @if (searchMessage) {
+          <p class="search-message" role="status">{{ searchMessage }}</p>
+        }
+      </div>
+
+      <p class="page-note">
+        Twoje miejsce do szukania samochodów.
+      </p>
+    </section>
+  </main>
+</div>
