@@ -1,0 +1,42 @@
+<section>
+  <div class="filtering-panel">
+    <div class="form-wrap">
+      <h1 class="form-title">Filtruj pojazdy</h1>
+      <form>
+        <mat-form-field>
+          <mat-label>Marka pojazdu</mat-label>
+          <mat-select>
+            @for (make of car_makes; track make) {
+              <mat-option [value]="make">{{ make }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Model pojazdu</mat-label>
+          <mat-select>
+            @for (car_model of car_models; track car_model) {
+              <mat-option [value]="car_model">{{ car_model }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Typ pojazdu</mat-label>
+          <mat-select>
+            @for (car_type of car_types; track car_type) {
+              <mat-option [value]="car_type">{{ car_type }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Rodzaj paliwa</mat-label>
+          <mat-select>
+            @for (fuel_type of fuel_types; track fuel_type) {
+              <mat-option [value]="fuel_type">{{ fuel_type }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      </form>
+      <button matButton="filled">Pokaż ogłoszenia</button>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,47 @@
+.app-header {
+  min-height: 60px;
+  padding: var(--content-padding) 24px;
+  box-shadow: 0 5px 25px var(--shadow-color);
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+}
+
+.brand-logo {
+  padding-left: 10px;
+}
+
+.brand-logo-left {
+  display: inline-flex;
+  align-items: center;
+  padding: 1px 6px;
+  border-radius: 5px 0 0 5px;
+  background: var(--primary-color);
+  color: white;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: lowercase;
+}
+
+.brand-logo-right {
+  display: inline-flex;
+  align-items: center;
+  padding: 1px 6px;
+  border-radius: 0 5px 5px 0;
+  background: var(--accent-color);
+  color: var(--primary-color);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: lowercase;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.user-button {
+  justify-self: end;
+  padding-right: 10px;
+}
