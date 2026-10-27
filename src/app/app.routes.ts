@@ -29,7 +29,12 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./features/advertsList/advertsList')
             .then(c => c.AdvertsListComponent)
-      }
+      }, {
+        path: 'search',
+        loadComponent: () =>
+          import('./features/search-results/search-results.component')
+            .then(c => c.SearchResultsComponent)
+      },
     ]
   }
 ];

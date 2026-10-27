@@ -1,0 +1,51 @@
+<app-search [criteria]="criteria()" (search)="onSearch($event)" />
+
+<section class="results">
+    <div class="results-header">
+        <h2>
+            @if (sortedCars(); as cars) {
+                {{ cars.length | number }} {{ cars.length === 1 ? 'offer' : 'offers' }} found
+            } @else {
+                Searching…
+            }
+        </h2>
+
+        <label class="sort">
+            Sort by
+            <select [value]="sort()" (change)="onSortChange($event)">
+                <option value="newest">Newest first</option>
+                <option value="price-asc">Price: lowest first</option>
+                <option value="price-desc">Price: highest first</option>
+                <option value="mileage-asc">Mileage: lowest first</option>
+            </select>
+        </label>
+    </div>
+
+    @if (sortedCars(); as cars) {
+        @for (car of cars; track car.id) {
+            <article class="card">
+                <div class="thumb">{{ car.brand.charAt(0) }}</div>
+
+                <div class="details">
+                    <h3>{{ car.brand }} {{ car.model }}</h3>
+                    <ul class="params">
+                        <li>{{ car.year }}</li>
+                        <li>{{ car.mileage | number }} km</li>
+                        @if (car.engineCapacity) {
+                            <li>{{ car.engineCapacity | number }} cm³</li>
+                        }
+                        <li>{{ fuelLabel(car) }}</li>
+                        <li>{{ car.gearbox === 'automatic' ? 'Automatic' : 'Manual' }}</li>
+                    </ul>
+                    <p class="city">{{ car.city }}</p>
+                </div>
+
+                <div class="price">
+                    {{ car.price | number }} <small>PLN</small>
+                </div>
+            </article>
+        } @empty {
+            <p class="empty">No offers match your criteria. Try widening the filters.</p>
+        }
+    }
+</section>

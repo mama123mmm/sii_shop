@@ -1,0 +1,89 @@
+<form class="search" [formGroup]="form" (ngSubmit)="submit()">
+    <div class="body-types" role="radiogroup" aria-label="Body type">
+        <button type="button" class="chip" [class.active]="form.controls.bodyType.value === ''"
+            (click)="selectBodyType('')">All</button>
+        @for (type of bodyTypes; track type.value) {
+            <button type="button" class="chip" [class.active]="form.controls.bodyType.value === type.value"
+                (click)="selectBodyType(type.value)">{{ type.label }}</button>
+        }
+    </div>
+
+    <div class="fields">
+        <label class="field">
+            <span>Brand</span>
+            <select formControlName="brand">
+                <option value="">Any brand</option>
+                @for (brand of brands(); track brand) {
+                    <option [value]="brand">{{ brand }}</option>
+                }
+            </select>
+        </label>
+
+        <label class="field">
+            <span>Model</span>
+            <select formControlName="model">
+                <option value="">{{ form.controls.brand.value ? 'Any model' : 'Choose brand first' }}</option>
+                @for (model of models(); track model) {
+                    <option [value]="model">{{ model }}</option>
+                }
+            </select>
+        </label>
+
+        <div class="field range">
+            <span>Price (PLN)</span>
+            <div class="range-inputs">
+                <input type="number" min="0" step="1000" placeholder="From" formControlName="priceFrom" aria-label="Price from" />
+                <input type="number" min="0" step="1000" placeholder="To" formControlName="priceTo" aria-label="Price to" />
+            </div>
+        </div>
+
+        <div class="field range">
+            <span>Year of production</span>
+            <div class="range-inputs">
+                <select formControlName="yearFrom" aria-label="Year from">
+                    <option [ngValue]="null">From</option>
+                    @for (year of years; track year) {
+                        <option [ngValue]="year">{{ year }}</option>
+                    }
+                </select>
+                <select formControlName="yearTo" aria-label="Year to">
+                    <option [ngValue]="null">To</option>
+                    @for (year of years; track year) {
+                        <option [ngValue]="year">{{ year }}</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <label class="field">
+            <span>Fuel type</span>
+            <select formControlName="fuelType">
+                <option value="">Any</option>
+                @for (fuel of fuelTypes; track fuel.value) {
+                    <option [value]="fuel.value">{{ fuel.label }}</option>
+                }
+            </select>
+        </label>
+
+        <label class="field">
+            <span>Mileage up to</span>
+            <select formControlName="mileageTo">
+                <option [ngValue]="null">Any</option>
+                @for (mileage of mileages; track mileage) {
+                    <option [ngValue]="mileage">{{ mileage | number }} km</option>
+                }
+            </select>
+        </label>
+    </div>
+
+    <div class="actions">
+        <button type="button" class="link" (click)="clear()">Clear filters</button>
+        <button type="submit" class="submit" [disabled]="count() === 0">
+            @if (count() === null) {
+                Searching…
+            } @else {
+                Show {{ count() | number }} {{ count() === 1 ? 'offer' : 'offers' }}
+            }
+        </button>
+    </div>
+</form>
