@@ -1,10 +1,36 @@
-.footer {
-    background: #222;
-    color: white;
-    text-align: center;
-    padding: 1rem;
+footer {
+  background-color: var(--primary-color);
+  width: 100%;
+}
 
-    p {
-        margin: 0;
-    }
+.app-footer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 1.5rem 2rem;
+  color: #fff;
+}
+
+.footer-links {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  display: grid;
+}
+
+.footer-links a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.footer-links a:hover {
+  text-decoration: underline;
+}
+
+.footer-contact {
+  display: grid;
+  gap: 0.25rem;
+  margin: 0;
+  font-style: normal;
 }

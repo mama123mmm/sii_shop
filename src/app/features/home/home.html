@@ -1,0 +1,42 @@
+<section>
+  <div class="filtering-panel">
+    <div class="form-wrap">
+      <h1 class="form-title">Look for a car</h1>
+      <form>
+        <mat-form-field>
+          <mat-label>Car make</mat-label>
+          <mat-select>
+            @for (car_make of car_makes; track car_make) {
+              <mat-option [value]="car_make">{{ car_make }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Car model</mat-label>
+          <mat-select>
+            @for (car_model of car_models; track car_model) {
+              <mat-option [value]="car_model">{{ car_model }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Car type</mat-label>
+          <mat-select>
+            @for (car_type of car_types; track car_type) {
+              <mat-option [value]="car_type">{{ car_type }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Fuel type</mat-label>
+          <mat-select>
+            @for (fuel_type of fuel_types; track fuel_type) {
+              <mat-option [value]="fuel_type">{{ fuel_type }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      </form>
+      <a matButton="filled" routerLink="/advertsList" routerLinkActive="active">Show adverts</a>
+    </div>
+  </div>
+</section>
