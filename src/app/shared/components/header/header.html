@@ -1,8 +1,13 @@
 <header class="header">
-    <a class="logo" routerLink="/">MyApp</a>
-
-    <nav>
-        <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a>
-        <a routerLink="/about" routerLinkActive="active">About</a>
-    </nav>
+  <a class="brand-logo" routerLink="/">
+    <span class="brand-logo-left">sii</span>
+    <span class="brand-logo-right">moto</span>
+  </a>
+  <nav class="header-actions">
+    <a matButton="filled" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a>
+    <a matButton="filled" routerLink="/about" routerLinkActive="active">About</a>
+  </nav>
+  <div class="user-button">
+    <a matButton="filled" routerLink="/profile" routerLinkActive="active">Profile</a>
+  </div>
 </header>
